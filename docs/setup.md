@@ -6,7 +6,7 @@ The first step is to make sure you have docker running on your system.
 Using the following command, we make sure RabbitMQ is running:
 
 ```
-docker run -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+docker run -p 15672:15672 -d -p 5672:5672 rabbitmq:3-management
 ```
 
 ## Camunda Platform 8

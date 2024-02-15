@@ -2,8 +2,8 @@
 
 ![Ticket Booking Process](booking-service-java/src/main/resources/ticket-booking.png)
 
-A ticket booking example using 
-* Camunda Platform 8, 
+A ticket booking example using
+* Camunda Platform 8,
 * RabbitMQ,
 * Java Spring Boot App
 * NodeJS App
@@ -43,7 +43,7 @@ If you want to understand the code, please have a look into this get started tut
 ```
 cd fake-services-nodejs
 npm update
-ts-node src/app.ts
+npm run build
 ```
 
 ## Run Java Ticket Booking Service
