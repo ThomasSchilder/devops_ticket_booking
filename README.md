@@ -44,6 +44,7 @@ If you want to understand the code, please have a look into this get started tut
 cd fake-services-nodejs
 npm update
 npm run build
+node src/app.js
 ```
 
 ## Run Java Ticket Booking Service

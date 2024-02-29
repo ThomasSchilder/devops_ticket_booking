@@ -9,6 +9,14 @@ Using the following command, we make sure RabbitMQ is running:
 docker run -p 15672:15672 -d -p 5672:5672 rabbitmq:3-management
 ```
 
+## Zeebe-Lambda-Worker
+using the following command, we make sure the Zeebe-Lambda-Worker is running:
+
+```
+cd platform
+docker run --env-file credentials/camunda.env --env-file credentials/aws.env -p 8080:8080 camunda/zeebe-lambda-worker:SNAPSHOT
+```
+
 ## Camunda Platform 8
 The booking service is built on Camunda Platform 8. Camunda have published the docker compose files required to run their software on your machine. How nice!
 
