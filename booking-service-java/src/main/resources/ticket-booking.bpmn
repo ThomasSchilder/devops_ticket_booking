@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1a4gt8m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1a4gt8m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="c2ec34f" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.5.0">
   <bpmn:collaboration id="Collaboration_0t1vxrh">
     <bpmn:participant id="ticket-booking-participant" name="TicketBooking" processRef="ticket-booking" />
     <bpmn:participant id="Participant_1l2gxa0" name="Payment" />
@@ -14,13 +14,6 @@
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_19ebf54</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="Activity_1g89uec" name="Reserve Seats">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="reserve-seats" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_19ebf54</bpmn:incoming>
-      <bpmn:outgoing>Flow_0qbwde5</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:receiveTask id="Activity_0h19mxb" name="Wait for &#39;payment retrieved&#39; event" messageRef="Message_04xnjbt">
       <bpmn:incoming>Flow_0mwrroh</bpmn:incoming>
       <bpmn:outgoing>Flow_0podi1a</bpmn:outgoing>
@@ -54,10 +47,6 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT30S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:boundaryEvent id="Event_076cmo0" name="Seats not available" attachedToRef="Activity_1g89uec">
-      <bpmn:outgoing>Flow_18sbo4b</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_0t3hnlu" errorRef="Error_11kp03o" />
-    </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_19ebf54" sourceRef="StartEvent_1" targetRef="Activity_1g89uec" />
     <bpmn:sequenceFlow id="Flow_0qbwde5" sourceRef="Activity_1g89uec" targetRef="Activity_0lox1kf" />
     <bpmn:sequenceFlow id="Flow_0mwrroh" sourceRef="Activity_0lox1kf" targetRef="Activity_0h19mxb" />
@@ -65,6 +54,22 @@
     <bpmn:sequenceFlow id="Flow_012b8wg" sourceRef="Event_1ywtp2y" targetRef="Event_05eni0s" />
     <bpmn:sequenceFlow id="Flow_18sbo4b" sourceRef="Event_076cmo0" targetRef="Event_1ne48r4" />
     <bpmn:sequenceFlow id="Flow_19x2sei" sourceRef="Activity_0etdda4" targetRef="Event_1mqmjv4" />
+    <bpmn:boundaryEvent id="Event_076cmo0" name="Seats not available" attachedToRef="Activity_1g89uec">
+      <bpmn:outgoing>Flow_18sbo4b</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0t3hnlu" errorRef="Error_11kp03o" />
+    </bpmn:boundaryEvent>
+    <bpmn:serviceTask id="Activity_1g89uec" name="Reserve Seats">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lambda" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="functionName" value="SeatReservationService" />
+          <zeebe:header key="body" value="{&#34;body&#34;: &#34;{{{variablesJson}}}&#34;}" />
+          <zeebe:header key="resultName" value="seatReservationResult" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_19ebf54</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qbwde5</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_1jzfvr1">
       <bpmn:text>Including retries if REST API is not available</bpmn:text>
     </bpmn:textAnnotation>
@@ -81,39 +86,8 @@
       <bpmndi:BPMNShape id="Participant_0yfjoqi_di" bpmnElement="ticket-booking-participant" isHorizontal="true">
         <dc:Bounds x="179" y="59" width="889" height="301" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_19x2sei_di" bpmnElement="Flow_19x2sei">
-        <di:waypoint x="890" y="187" />
-        <di:waypoint x="932" y="187" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_18sbo4b_di" bpmnElement="Flow_18sbo4b">
-        <di:waypoint x="390" y="245" />
-        <di:waypoint x="390" y="292" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_012b8wg_di" bpmnElement="Flow_012b8wg">
-        <di:waypoint x="710" y="245" />
-        <di:waypoint x="710" y="292" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0podi1a_di" bpmnElement="Flow_0podi1a">
-        <di:waypoint x="740" y="187" />
-        <di:waypoint x="790" y="187" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0mwrroh_di" bpmnElement="Flow_0mwrroh">
-        <di:waypoint x="600" y="187" />
-        <di:waypoint x="640" y="187" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0qbwde5_di" bpmnElement="Flow_0qbwde5">
-        <di:waypoint x="420" y="187" />
-        <di:waypoint x="500" y="187" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_19ebf54_di" bpmnElement="Flow_19ebf54">
-        <di:waypoint x="265" y="187" />
-        <di:waypoint x="320" y="187" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="229" y="169" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0g77fwc_di" bpmnElement="Activity_1g89uec">
-        <dc:Bounds x="320" y="147" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0z5d04d_di" bpmnElement="Activity_0h19mxb">
         <dc:Bounds x="640" y="147" width="100" height="80" />
@@ -142,6 +116,9 @@
       <bpmndi:BPMNShape id="Activity_0zlzkpv_di" bpmnElement="Activity_0etdda4">
         <dc:Bounds x="790" y="147" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yoqvom_di" bpmnElement="Activity_1g89uec">
+        <dc:Bounds x="320" y="147" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1jzfvr1_di" bpmnElement="TextAnnotation_1jzfvr1">
         <dc:Bounds x="890" y="80" width="150" height="40" />
       </bpmndi:BPMNShape>
@@ -154,6 +131,34 @@
       <bpmndi:BPMNShape id="Event_0pqivlb_di" bpmnElement="Event_1ywtp2y">
         <dc:Bounds x="692" y="209" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_19ebf54_di" bpmnElement="Flow_19ebf54">
+        <di:waypoint x="265" y="187" />
+        <di:waypoint x="320" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qbwde5_di" bpmnElement="Flow_0qbwde5">
+        <di:waypoint x="420" y="187" />
+        <di:waypoint x="500" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mwrroh_di" bpmnElement="Flow_0mwrroh">
+        <di:waypoint x="600" y="187" />
+        <di:waypoint x="640" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0podi1a_di" bpmnElement="Flow_0podi1a">
+        <di:waypoint x="740" y="187" />
+        <di:waypoint x="790" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_012b8wg_di" bpmnElement="Flow_012b8wg">
+        <di:waypoint x="710" y="245" />
+        <di:waypoint x="710" y="292" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18sbo4b_di" bpmnElement="Flow_18sbo4b">
+        <di:waypoint x="390" y="245" />
+        <di:waypoint x="390" y="292" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19x2sei_di" bpmnElement="Flow_19x2sei">
+        <di:waypoint x="890" y="187" />
+        <di:waypoint x="932" y="187" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0klei9i_di" bpmnElement="Association_0klei9i">
         <di:waypoint x="885" y="148" />
         <di:waypoint x="932" y="120" />
@@ -171,7 +176,7 @@
         <di:waypoint x="340" y="227" />
         <di:waypoint x="340" y="430" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="346" y="383" width="88" height="27" />
+          <dc:Bounds x="347" y="383" width="87" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08b5p57_di" bpmnElement="Flow_08b5p57">
