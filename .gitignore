@@ -1,4 +1,6 @@
 */node_modules/
+/platform/credentials/
 */package-lock.json
+/fakes-services-nodejs/node_modules/
 
 
