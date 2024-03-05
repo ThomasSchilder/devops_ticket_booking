@@ -18,6 +18,7 @@
     "zeebe-node": "2.4.0"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.134",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }

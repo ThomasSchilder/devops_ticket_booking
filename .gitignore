@@ -1,6 +1,8 @@
 */node_modules/
-/platform/credentials/
+platform/credentials/
 */package-lock.json
-/fakes-services-nodejs/node_modules/
+fakes-services-nodejs/node_modules/aws.env
+fakes-services-nodejs/node_modules/camunda.env
+
 
 
