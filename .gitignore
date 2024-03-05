@@ -6,3 +6,4 @@ fakes-services-nodejs/node_modules/camunda.env
 
 
 
+*.env
