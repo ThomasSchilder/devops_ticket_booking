@@ -1,2 +1,8 @@
 */node_modules/
 */package-lock.json
+
+# Ignore settings in application.properties
+/target/
+
+
+**/application.properties
