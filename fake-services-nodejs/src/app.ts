@@ -9,7 +9,7 @@ require("dotenv").config();
 const zeebeClient = new ZBClient();
 const worker = zeebeClient.createWorker('reserve-seats', reserveSeatsHandler)
 
-function reserveSeatsHandler(job, _, worker) {  
+function reserveSeatsHandler(job, _, worker) {
   console.log("\n\n Reserve seats now...");
   console.log(job);
 
@@ -45,7 +45,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     if (error1) {
       throw error1;
     }
-    
+
     channel.assertQueue(queuePaymentRequest, { durable: true });
     channel.assertQueue(queuePaymentResponse, {durable: true });
 
@@ -59,7 +59,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 
       channel.sendToQueue(queuePaymentResponse, Buffer.from(outputMessage));
       console.log(" [x] Sent payment response %s", outputMessage);
-  
+
     }, {
         noAck: true
     });

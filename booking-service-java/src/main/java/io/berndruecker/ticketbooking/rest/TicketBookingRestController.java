@@ -34,11 +34,11 @@ public class TicketBookingRestController {
   @PutMapping("/ticket")
   public ResponseEntity<BookTicketResponse> bookTicket(ServerWebExchange exchange) {
     String simulateBookingFailure = exchange.getRequest().getQueryParams().getFirst("simulateBookingFailure");
-    
+
     // This would be best generated even in the client to allow idempotency!
     BookTicketResponse response = new BookTicketResponse();
     response.bookingReferenceId = UUID.randomUUID().toString();
-    
+
     HashMap<String, Object> variables = new HashMap<String, Object>();
     variables.put(ProcessConstants.VAR_BOOKING_REFERENCE_ID, response.bookingReferenceId);
     if (simulateBookingFailure!=null) {
@@ -61,7 +61,7 @@ public class TicketBookingRestController {
       response.reservationId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_RESERVATION_ID);
       response.paymentConfirmationId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_PAYMENT_CONFIRMATION_ID);
       response.ticketId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_TICKET_ID);
-      
+
       return ResponseEntity.status(HttpStatus.OK).body(response);
     } catch (ClientStatusException ex) {
 
@@ -72,13 +72,13 @@ public class TicketBookingRestController {
       return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
   }
-  
+
   // TODO: Add API to query status (if you got an 202 earlier on)
 
   public static class BookTicketResponse {
     public String reservationId;
     public String paymentConfirmationId;
-    public String ticketId;   
+    public String ticketId;
     public String bookingReferenceId;
 
     public boolean isSuccess() {

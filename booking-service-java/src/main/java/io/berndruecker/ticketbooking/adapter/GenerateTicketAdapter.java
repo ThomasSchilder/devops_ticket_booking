@@ -20,8 +20,8 @@ public class GenerateTicketAdapter {
 
   // This should be of course injected and depends on the environment.
   // Hard coded for simplicity here
-  public static String ENDPOINT = "http://localhost:3000/ticket";
-
+  // public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/testLambdaFromPython";
+  public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/TicketGenerationService"
   @Autowired
   private RestTemplate restTemplate;
 
@@ -33,11 +33,11 @@ public class GenerateTicketAdapter {
 
       // Simulate a network problem to the HTTP server
       throw new IOException("[Simulated] Could not connect to HTTP server");
-      
+
     } else {
-      
+
       // Call REST API, simply returns a ticketId
-      CreateTicketResponse ticket = restTemplate.getForObject(ENDPOINT, CreateTicketResponse.class);  
+      CreateTicketResponse ticket = restTemplate.getForObject(ENDPOINT, CreateTicketResponse.class);
       logger.info("Succeeded with " + ticket);
 
       return Collections.singletonMap(ProcessConstants.VAR_TICKET_ID, ticket.ticketId);
