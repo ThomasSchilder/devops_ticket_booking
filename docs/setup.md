@@ -16,7 +16,7 @@ using the following command, we make sure the Zeebe-Lambda-Worker is running:
 
 ```bash
 cd platform
-docker run --env-file credentials/camunda.env --env-file credentials/aws.env -p 8080:8080 camunda/zeebe-lambda-worker:SNAPSHOT
+docker run --env-file credentials/camunda.env --env-file credentials/aws.env -p 8081:8080 camunda/zeebe-lambda-worker:SNAPSHOT
 ```
 
 ## Camunda Platform 8

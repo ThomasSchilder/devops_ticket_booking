@@ -71,15 +71,15 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 ////////////////////////////////////
 // FAKE TICKET GENERATION SERVICE
 ////////////////////////////////////
-// var express = require("express");
-// var app = express();
+var express = require("express");
+var app = express();
 
-// app.listen(3000, () => {
-//   console.log("HTTP Server running on port 3000");
-// });
+app.listen(3000, () => {
+  console.log("HTTP Server running on port 3000");
+});
 
-// app.get("/ticket", (req, res, next) => {
-//   var ticketId = uuidv4();
-//   console.log("\n\n [x] Create Ticket %s", ticketId);
-//   res.json({"ticketId" : ticketId});
-// });
+app.get("/ticket", (req, res, next) => {
+  var ticketId = uuidv4();
+  console.log("\n\n [x] Create Ticket %s", ticketId);
+  res.json({"ticketId" : ticketId});
+});

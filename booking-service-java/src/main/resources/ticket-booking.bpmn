@@ -63,8 +63,8 @@
         <zeebe:taskDefinition type="lambda" />
         <zeebe:taskHeaders>
           <zeebe:header key="functionName" value="SeatReservationService" />
-          <zeebe:header key="body" value="{&#34;body&#34;: &#34;{{{variablesJson}}}&#34;}" />
-          <zeebe:header key="resultName" value="seatReservationResult" />
+          <zeebe:header key="body" value="{&#34;body&#34;: &#34;{{{variablesJsonEscaped}}}&#34;}" />
+          <!-- <zeebe:header key="resultName" value="seatReservationResult" /> -->
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_19ebf54</bpmn:incoming>

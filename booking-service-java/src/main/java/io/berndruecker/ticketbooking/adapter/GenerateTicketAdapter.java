@@ -20,8 +20,8 @@ public class GenerateTicketAdapter {
 
   // This should be of course injected and depends on the environment.
   // Hard coded for simplicity here
-  public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/testLambdaFromPython";
-
+  // public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/testLambdaFromPython";
+  public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/TicketGenerationService"
   @Autowired
   private RestTemplate restTemplate;
 
