@@ -1,9 +1,18 @@
 */node_modules/
 platform/credentials/
 */package-lock.json
+<<<<<<< HEAD
 fakes-services-nodejs/node_modules/aws.env
 fakes-services-nodejs/node_modules/camunda.env
 
 
 
 *.env
+=======
+
+# Ignore settings in application.properties
+/target/
+
+
+**/application.properties
+>>>>>>> 1d940d70769a26f75a48a4249d31a3c4fef03558
