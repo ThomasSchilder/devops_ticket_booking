@@ -12,7 +12,7 @@ env:
   ECS_CLUSTER: ticket-booking-application                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: .aws/booking-service-java-revision7.json # set this to the path to your Amazon ECS task definition
   CONTAINER_NAME: "booking-service-java"           # set this to the name of the container in the containerDefinitions section of your task definition
-
+  DOCKER_FILE_PATH: ../../booking-service-java/
 
 jobs:
   deploy:
@@ -44,7 +44,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $DOCKER_FILE_PATH
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
