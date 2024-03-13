@@ -11,6 +11,7 @@ env:
   ECS_SERVICE: zeebe-lambda-service                 # set this to your Amazon ECS service name
   ECS_CLUSTER: ticket-booking-application                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ./.aws/zeebe-lambda-task-revision6.json # set this to the path to your Amazon ECS task definition
+
   CONTAINER_NAME: "zeebe-lambda-connector"           # set this to the name of the container in the containerDefinitions section of your task definition
 
 
