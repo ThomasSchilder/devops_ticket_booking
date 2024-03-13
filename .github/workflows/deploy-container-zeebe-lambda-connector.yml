@@ -6,18 +6,23 @@ on:
       - main
 
 env:
-  AWS_REGION: eu-north-1
-  ECR_REPOSITORY: zeebe-lambda-connector
+  AWS_REGION: eu-north-1                   # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: zeebe-lambda-connector           # set this to your Amazon ECR repository name
+  ECS_SERVICE: zeebe-lambda-service                 # set this to your Amazon ECS service name
+  ECS_CLUSTER: ticket-booking-application                 # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: .aws/zeebe-lambda-task-revision6.json # set this to the path to your Amazon ECS task definition
+  CONTAINER_NAME: "zeebe-lambda-connector"           # set this to the name of the container in the containerDefinitions section of your task definition
+
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
@@ -34,7 +39,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: latest
         run: |
           # Build a docker container and
           # push it to ECR so that it can
@@ -42,3 +47,19 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
