@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: eu-north-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: zeebe-lambda-connector:latest           # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: zeebe-lambda-connector           # set this to your Amazon ECR repository name
   ECS_SERVICE: zeebe-lambda-service                 # set this to your Amazon ECS service name
   ECS_CLUSTER: ticket-booking-application                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: .aws/zeebe-lambda-task-revision6.json # set this to the path to your Amazon ECS task definition
@@ -39,7 +39,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: 75304a6770918f17604cb31f86c4dc9913f6c0a4098b0211bce0eb9050b87ca9
         run: |
           # Build a docker container and
           # push it to ECR so that it can
