@@ -12,7 +12,7 @@ env:
   ECS_CLUSTER: ticket-booking-application                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: .aws/booking-service-java-revision7.json # set this to the path to your Amazon ECS task definition
   CONTAINER_NAME: "booking-service-java"           # set this to the name of the container in the containerDefinitions section of your task definition
-  DOCKER_FILE_PATH: ../../booking-service-java/
+  DOCKER_FILE_PATH: ../../booking-service-java
 
 jobs:
   deploy:
