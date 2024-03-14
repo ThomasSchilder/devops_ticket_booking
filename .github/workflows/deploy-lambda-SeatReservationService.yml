@@ -12,7 +12,7 @@ env:
   S3_BUCKET: ticket-booking-services
   S3_KEY: SeatReservationService_deployment_package.zip
   LAMBDA_FUNCTION_NAME: SeatReservationService
-  FUNCTION_ZIP_PATH: services/SeatReservationService/Zip
+  FUNCTION_ZIP_PATH: services/SeatReservationService/Zip/SeatReservationService_deployment_package.zip
   FUNCTION_NAME: SeatReservationService.py
 
 jobs:
