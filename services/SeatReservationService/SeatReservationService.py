@@ -9,6 +9,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps(reservation)
         }
+    #hoi
     return {
         'statusCode': 400,
         'body': json.dumps("ErrorSeatsNotAvailable")
