@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'services/SeatReservationService/SeatReservationService.py' # Change to the file extension of the language that you are using.
+    # paths:
+    #   - 'services/SeatReservationService/SeatReservationService.py' # Change to the file extension of the language that you are using.
 
 env:
   AWS_REGION: eu-north-1                   # set this to your preferred AWS region, e.g. us-west-1
