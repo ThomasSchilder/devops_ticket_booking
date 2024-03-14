@@ -12,8 +12,8 @@ env:
   S3_BUCKET: ticket-booking-services
   S3_KEY: SeatReservationService_deployment_package.zip
   LAMBDA_FUNCTION_NAME: SeatReservationService
-  FUNCTION_ZIP_PATH: services/SeatReservationService/Zip/SeatReservationService_deployment_package.zip
-  FUNCTION_NAME: SeatReservationService.py
+  # FUNCTION_ZIP_PATH: services/SeatReservationService/Zip/
+  # FUNCTION_NAME: SeatReservationService.py
 
 jobs:
   deploy:
@@ -32,15 +32,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }} # Modify this to your desired AWS region
 
-    - name: Zip Lambda Function
-      run: |
-        cd services/SeatReservationService
-        zip Zip/$S3_KEY $FUNCTION_NAME
-        cd ../..
+    # - name: Zip Lambda Function
+    #   run: |
+    #     cd services/SeatReservationService
+    #     zip Zip/$S3_KEY $FUNCTION_NAME
+    #     cd ../..
 
-    - name: Sync files to S3 bucket
-      run: |
-        aws s3 sync $FUNCTION_ZIP_PATH s3://$S3_BUCKET/$S3_KEY --delete
+    # - name: Sync files to S3 bucket
+    #   run: |
+    #     aws s3 sync $FUNCTION_ZIP_PATH s3://$S3_BUCKET/$S3_KEY --delete
 
     - name: Print changed files # To properly debug what is being deployed (It can be removed).
       run: |
