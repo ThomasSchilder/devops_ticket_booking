@@ -12,9 +12,8 @@ env:
   S3_BUCKET: ticket-booking-services
   S3_KEY: SeatReservationService_deployment_package.zip
   LAMBDA_FUNCTION_NAME: SeatReservationService
-  FUNCTION_ZIP_PATH: services/SeatReservationService/
+  FUNCTION_ZIP_PATH: services/SeatReservationService/Zip
   FUNCTION_NAME: SeatReservationService.py
-
 
 jobs:
   deploy:
@@ -36,7 +35,7 @@ jobs:
     - name: Zip Lambda Function
       run: |
         cd services/SeatReservationService
-        zip $S3_KEY $FUNCTION_NAME
+        zip Zip/$S3_KEY $FUNCTION_NAME
         cd ../..
 
     - name: Sync files to S3 bucket
