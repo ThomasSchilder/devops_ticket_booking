@@ -24,6 +24,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-north-1 # Modify this to your desired AWS region
 
+    - name: Sync files to S3 bucket
+      run: |
+        aws s3 sync services/SeatReservationService/SeatReservationService.zip s3://ticket-booking-services/SeatReservationService.zip --delete
+
     - name: Print changed files # To properly debug what is being deployed (It can be removed).
       run: |
         echo "List of changed files:"
