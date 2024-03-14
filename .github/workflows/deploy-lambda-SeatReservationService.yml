@@ -32,11 +32,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }} # Modify this to your desired AWS region
 
-    # - name: Zip Lambda Function
-    #   run: |
-    #     cd services/SeatReservationService
-    #     zip Zip/$S3_KEY $FUNCTION_NAME
-    #     cd ../..
+    - name: Zip Lambda Function
+      run: |
+        cd services/SeatReservationService
+        zip Zip/$S3_KEY $FUNCTION_NAME
+        cd ../..
 
     # - name: Sync files to S3 bucket
     #   run: |
