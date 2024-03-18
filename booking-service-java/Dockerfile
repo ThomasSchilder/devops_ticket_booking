@@ -2,7 +2,6 @@
 FROM openjdk:17-jdk-slim
 
 # Set the working directory in the container
-WORKDIR /app
 
 # Install Maven
 RUN apt-get update && \
@@ -39,8 +38,9 @@ ENV ZEEBE_CLIENT_CLOUD_REGION=$ZEEBE_CLIENT_CLOUD_REGION \
     SPRING_RABBITMG_SSL_ENABLED=$SPRING_RABBITMG_SSL_ENABLED
 
 # Copy the current directory contents into the container at /app
-COPY . .
+COPY ./booking-service-java ./app
 
+WORKDIR ./app
 # Define default command to run when the container starts
 CMD ["mvn", "package", "exec:java"]
 
