@@ -40,7 +40,6 @@ ENV ZEEBE_CLIENT_CLOUD_REGION=$ZEEBE_CLIENT_CLOUD_REGION \
 
 # Copy the current directory contents into the container at /app
 COPY . /app
-RUN ls -al /appd
 
 # Define default command to run when the container starts
 CMD ["mvn", "package", "exec:java"]
