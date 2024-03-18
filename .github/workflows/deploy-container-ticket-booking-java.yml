@@ -5,17 +5,27 @@ on:
     branches:
       - main
     paths:
-      - 'booking-service-java' # Change to the file extension of the language that you are using.
-
+      - 'booking-service-java/**/*.java' # This line is updated to monitor any Java file changes in the specified directory
 
 env:
-  AWS_REGION: eu-north-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: ticket-booking-java           # set this to your Amazon ECR repository name
-  ECS_SERVICE: booking-service                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: ticket-booking-application                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .aws/booking-service-java-revision7.json # set this to the path to your Amazon ECS task definition
-  CONTAINER_NAME: "booking-service-java"           # set this to the name of the container in the containerDefinitions section of your task definition
+  AWS_REGION: eu-north-1
+  ECR_REPOSITORY: ticket-booking-java
+  ECS_SERVICE: booking-service
+  ECS_CLUSTER: ticket-booking-application
+  ECS_TASK_DEFINITION: .aws/booking-service-java-revision7.json
+  CONTAINER_NAME: "booking-service-java"
   DOCKER_FILE_PATH: booking-service-java/Dockerfile
+  ZEEBE_CLIENT_CLOUD_REGION: ${{ secrets.ZEEBE_CLIENT_CLOUD_REGION }}
+  ZEEBE_CLIENT_CLOUD_CLUSTERID: ${{ secrets.ZEEBE_CLIENT_CLOUD_CLUSTERID }}
+  ZEEBE_CLIENT_CLOUD_CLIENTID: ${{ secrets.ZEEBE_CLIENT_CLOUD_CLIENTID }}
+  ZEEBE_CLIENT_CLOUD_CLIENTSECRET: ${{ secrets.ZEEBE_CLIENT_CLOUD_CLIENTSECRET }}
+  SPRING_RABBITMG_ADRESSES: ${{ secrets.SPRING_RABBITMG_ADRESSES }}
+  SPRING_RABBITMG_HOST: ${{ secrets.SPRING_RABBITMG_HOST }}
+  SPRING_RABBITMG_USERNAME: ${{ secrets.SPRING_RABBITMG_USERNAME }}
+  SPRING_RABBITMG_PORT: ${{ secrets.SPRING_RABBITMG_PORT }}
+  SPRING_RABBITMG_PASSWORD: ${{ secrets.SPRING_RABBITMG_PASSWORD }}
+  SPRING_RABBITMG_VIRTUAL_HOST: ${{ secrets.SPRING_RABBITMG_VIRTUAL_HOST }}
+  SPRING_RABBITMG_SSL_ENABLED: ${{ secrets.SPRING_RABBITMG_SSL_ENABLED }}
 
 jobs:
   deploy:
@@ -44,10 +54,18 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKER_FILE_PATH .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKER_FILE_PATH \
+            --build-arg ZEEBE_CLIENT_CLOUD_REGION=$ZEEBE_CLIENT_CLOUD_REGION \
+            --build-arg ZEEBE_CLIENT_CLOUD_CLUSTERID=$ZEEBE_CLIENT_CLOUD_CLUSTERID \
+            --build-arg ZEEBE_CLIENT_CLOUD_CLIENTID=$ZEEBE_CLIENT_CLOUD_CLIENTID \
+            --build-arg ZEEBE_CLIENT_CLOUD_CLIENTSECRET=$ZEEBE_CLIENT_CLOUD_CLIENTSECRET \
+            --build-arg SPRING_RABBITMG_ADRESSES=$SPRING_RABBITMG_ADRESSES \
+            --build-arg SPRING_RABBITMG_HOST=$SPRING_RABBITMG_HOST \
+            --build-arg SPRING_RABBITMG_USERNAME=$SPRING_RABBITMG_USERNAME \
+            --build-arg SPRING_RABBITMG_PORT=$SPRING_RABBITMG_PORT \
+            --build-arg SPRING_RABBITMG_PASSWORD=$SPRING_RABBITMG_PASSWORD \
+            --build-arg SPRING_RABBITMG_VIRTUAL_HOST=$SPRING_RABBITMG_VIRTUAL_HOST \
+            --build-arg SPRING_RABBITMG_SSL_ENABLED=$SPRING_RABBITMG_SSL_ENABLED .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
@@ -66,4 +84,3 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
-

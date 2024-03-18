@@ -7,11 +7,14 @@ on:
     paths:
       - 'services/SeatReservationService/SeatReservationService.py' # Change to the file extension of the language that you are using.
 
+
 env:
   AWS_REGION: eu-north-1                   # set this to your preferred AWS region, e.g. us-west-1
   S3_BUCKET: ticket-booking-services
   S3_KEY: SeatReservationService_deployment_package.zip
   LAMBDA_FUNCTION_NAME: SeatReservationService
+
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }} # Modify this to your desired AWS region
 
-        
+
     - name: Print changed files # To properly debug what is being deployed (It can be removed).
       run: |
         echo "List of changed files:"
