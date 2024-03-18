@@ -14,7 +14,7 @@ env:
   ECS_CLUSTER: ticket-booking-application
   ECS_TASK_DEFINITION: .aws/booking-service-java-revision7.json
   CONTAINER_NAME: "booking-service-java"
-  DOCKER_FILE_PATH: booking-service-java/
+  DOCKER_FILE_PATH: booking-service-java/Dockerfile
   ZEEBE_CLIENT_CLOUD_REGION: ${{ secrets.ZEEBE_CLIENT_CLOUD_REGION }}
   ZEEBE_CLIENT_CLOUD_CLUSTERID: ${{ secrets.ZEEBE_CLIENT_CLOUD_CLUSTERID }}
   ZEEBE_CLIENT_CLOUD_CLIENTID: ${{ secrets.ZEEBE_CLIENT_CLOUD_CLIENTID }}
