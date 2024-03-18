@@ -54,7 +54,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKER_FILE_PATH \
+          docker build --no-cache -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKER_FILE_PATH \
             --build-arg ZEEBE_CLIENT_CLOUD_REGION=$ZEEBE_CLIENT_CLOUD_REGION \
             --build-arg ZEEBE_CLIENT_CLOUD_CLUSTERID=$ZEEBE_CLIENT_CLOUD_CLUSTERID \
             --build-arg ZEEBE_CLIENT_CLOUD_CLIENTID=$ZEEBE_CLIENT_CLOUD_CLIENTID \

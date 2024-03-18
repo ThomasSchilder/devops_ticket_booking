@@ -39,7 +39,7 @@ ENV ZEEBE_CLIENT_CLOUD_REGION=$ZEEBE_CLIENT_CLOUD_REGION \
     SPRING_RABBITMG_SSL_ENABLED=$SPRING_RABBITMG_SSL_ENABLED
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY . .
 
 # Define default command to run when the container starts
 CMD ["mvn", "package", "exec:java"]
