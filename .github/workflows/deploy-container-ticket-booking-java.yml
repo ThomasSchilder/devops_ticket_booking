@@ -27,6 +27,7 @@ env:
   SPRING_RABBITMG_VIRTUAL_HOST_GIT: ${{ secrets.SPRING_RABBITMG_VIRTUAL_HOST }}
   SPRING_RABBITMG_SSL_ENABLED_GIT: ${{ secrets.SPRING_RABBITMG_SSL_ENABLED }}
 
+  
 jobs:
   deploy:
     name: Deploy
