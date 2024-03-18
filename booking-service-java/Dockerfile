@@ -42,4 +42,4 @@ ENV ZEEBE_CLIENT_CLOUD_REGION=$ZEEBE_CLIENT_CLOUD_REGION \
 COPY . /app
 
 # Define default command to run when the container starts
-CMD ["mvn", "package", "exec:java"]
+CMD ["mvn", "package", "exec:java", "-f", "./"]
