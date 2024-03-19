@@ -11,7 +11,7 @@ env:
   AWS_REGION: eu-north-1
   ECR_REPOSITORY: ticket-booking-java
   ECS_SERVICE: booking-service
-  ECS_CLUSTER: ticket-booking-application
+  ECS_CLUSTER: ticket-booking-system-automated
   ECS_TASK_DEFINITION: .aws/booking-service-java-revision7.json
   CONTAINER_NAME: "booking-service-java"
   DOCKER_FILE_PATH: booking-service-java/Dockerfile
