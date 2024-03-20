@@ -6,7 +6,7 @@ def lambda_handler(event, context):
         raise Exception("ErrorSeatsNotAvailable")
 
     booking_reference_id = event["bookingReferenceId"]
-    reservation = str(uuid.uuid4())
+    reservation = "1234"
     return {
         'statusCode': 200,
         "headers": {
