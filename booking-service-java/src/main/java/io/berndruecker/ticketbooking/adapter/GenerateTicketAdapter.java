@@ -22,7 +22,7 @@ public class GenerateTicketAdapter {
   Logger logger = LoggerFactory.getLogger(GenerateTicketAdapter.class);
 
   // This should be of course injected and depends on the environment.
-  @Value("${api.url}")
+  @Value("${API_URL}")
   private String apiEndpoint;
 
   public String ENDPOINT = apiEndpoint;
