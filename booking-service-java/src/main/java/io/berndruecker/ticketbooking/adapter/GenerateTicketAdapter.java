@@ -33,6 +33,8 @@ public class GenerateTicketAdapter {
   public Map<String, Object> callGenerateTicketRestService(final ActivatedJob job) throws IOException {
     logger.info("Generate ticket via REST [" + job + "]");
 
+    logger.info("REST API address: " + ENDPOINT );
+
     if ("ticket".equalsIgnoreCase((String)job.getVariablesAsMap().get(ProcessConstants.VAR_SIMULATE_BOOKING_FAILURE))) {
 
       // Simulate a network problem to the HTTP server
