@@ -26,7 +26,5 @@ public class DatabaseConfig {
     private String springRabbitmgVirtualHost;
     @Value("${SPRING_RABBITMG_SSL_ENABLED}")
     private String springRabbitmgSslEnabled;
-    @Value("${API_URL}")
-    private String apiUrl;
 
 }

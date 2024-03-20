@@ -22,10 +22,9 @@ public class GenerateTicketAdapter {
   Logger logger = LoggerFactory.getLogger(GenerateTicketAdapter.class);
 
   // This should be of course injected and depends on the environment.
-  @Value("${lambda.api.url}")
-  private String apiEndpoint;
+  @Value("${api.endpoint.uri}")
+  public String ENDPOINT;
 
-  public String ENDPOINT = apiEndpoint;
   @Autowired
   private RestTemplate restTemplate;
 
