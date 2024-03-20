@@ -1,4 +1,4 @@
-name: Deploy Python Lambda TicketGenerationService
+name: Deploy Python Lambda SeatReservationService
 
 on:
   push:

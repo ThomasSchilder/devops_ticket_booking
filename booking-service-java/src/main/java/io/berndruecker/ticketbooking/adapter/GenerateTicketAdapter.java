@@ -6,12 +6,15 @@ import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import io.berndruecker.ticketbooking.config.DatabaseConfig;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+import io.berndruecker.ticketbooking.config.DatabaseConfig;
 
 @Component
 public class GenerateTicketAdapter {
@@ -19,9 +22,10 @@ public class GenerateTicketAdapter {
   Logger logger = LoggerFactory.getLogger(GenerateTicketAdapter.class);
 
   // This should be of course injected and depends on the environment.
-  // Hard coded for simplicity here
-  // public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/testLambdaFromPython";
-  public static String ENDPOINT = "https://rt0s7s4wo0.execute-api.eu-north-1.amazonaws.com/default/TicketGenerationService";
+  @Value("${api.url}")
+  private String apiEndpoint;
+
+  public String ENDPOINT = apiEndpoint;
   @Autowired
   private RestTemplate restTemplate;
 

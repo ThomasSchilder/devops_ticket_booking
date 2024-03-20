@@ -4,9 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseConfig {
-    @Value("${DATABASE_PASSWORD}")
-    private String databasePassword;
-    // use the databasePassword variable as needed
     @Value("${ZEEBE_CLIENT_CLOUD_REGION}")
     private String zeebeClientCloudRegion;
     @Value("${ZEEBE_CLIENT_CLOUD_CLUSTERID}")
@@ -29,4 +26,7 @@ public class DatabaseConfig {
     private String springRabbitmgVirtualHost;
     @Value("${SPRING_RABBITMG_SSL_ENABLED}")
     private String springRabbitmgSslEnabled;
+    @Value("${API_URL}")
+    private String apiUrl;
+
 }
