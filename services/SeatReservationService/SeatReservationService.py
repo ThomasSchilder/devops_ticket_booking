@@ -7,6 +7,9 @@ def lambda_handler(event, context):
         reservation = {"reservationId": "1234"}
         return {
             'statusCode': 200,
+            "headers": {
+                "content-type": "application/json"
+            },
             'body': json.dumps(reservation)
         }
     return {
