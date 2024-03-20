@@ -1,12 +1,11 @@
 import json
+import uuid
 
 def lambda_handler(event, context):
-    # Throw 'ErrorSeatsNotAvailable' whenever a booking failure is simulated.
-    if (event['simulateBookingFailure'] == 'seats'):
+    if ("simulateBookingFailure" in event and event["simulateBookingFailure"] == "seats"):
         raise Exception("ErrorSeatsNotAvailable")
 
-    booking_reference_id = event["bookingReferenceId"]
-    reservation = "1234"
+    reservation = str(uuid.uuid4())
     return {
         'statusCode': 200,
         "headers": {
