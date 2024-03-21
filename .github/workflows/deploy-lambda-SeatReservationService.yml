@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'services/SeatReservationService/SeatReservationService.py' # Change to the file extension of the language that you are using.
+      - 'services/SeatReservationService/SeatReservationService.py' 
 
 
 env:

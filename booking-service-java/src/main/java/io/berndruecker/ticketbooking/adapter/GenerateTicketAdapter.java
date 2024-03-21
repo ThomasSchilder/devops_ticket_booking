@@ -14,7 +14,6 @@ import io.berndruecker.ticketbooking.config.DatabaseConfig;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
-import io.berndruecker.ticketbooking.config.DatabaseConfig;
 
 @Component
 public class GenerateTicketAdapter {
