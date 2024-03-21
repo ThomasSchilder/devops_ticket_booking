@@ -27,7 +27,6 @@ public class DatabaseConfig {
     @Value("${SPRING_RABBITMG_SSL_ENABLED}")
     private String springRabbitmgSslEnabled;
 
-
 }
 
 

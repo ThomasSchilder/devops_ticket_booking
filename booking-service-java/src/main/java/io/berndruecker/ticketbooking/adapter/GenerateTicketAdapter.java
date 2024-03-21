@@ -21,16 +21,17 @@ public class GenerateTicketAdapter {
   Logger logger = LoggerFactory.getLogger(GenerateTicketAdapter.class);
 
   // This should be of course injected and depends on the environment.
-  @Value("${API_URL}")
-  private String apiEndpoint;
+  @Value("${api.endpoint.uri}")
+  public String ENDPOINT;
 
-  public String ENDPOINT = apiEndpoint;
   @Autowired
   private RestTemplate restTemplate;
 
   @JobWorker(type = "generate-ticket")
   public Map<String, Object> callGenerateTicketRestService(final ActivatedJob job) throws IOException {
     logger.info("Generate ticket via REST [" + job + "]");
+
+    logger.info("REST API address: " + ENDPOINT );
 
     if ("ticket".equalsIgnoreCase((String)job.getVariablesAsMap().get(ProcessConstants.VAR_SIMULATE_BOOKING_FAILURE))) {
 
@@ -51,3 +52,4 @@ public class GenerateTicketAdapter {
     public String ticketId;
   }
 }
+
